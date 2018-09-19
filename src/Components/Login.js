@@ -54,6 +54,11 @@ class Login extends Component {
     };
 
   }
+
+  onSubmit = () => {
+    this.props.onLogin(this.state.username, this.state.password);
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -85,6 +90,7 @@ class Login extends Component {
               variant="raised"
               color="primary"
               className={classes.submit}
+              onClick={this.onSubmit}
             >
               Log in
             </Button>

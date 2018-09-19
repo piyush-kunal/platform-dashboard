@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './Components/App';
 import { BrowserRouter } from 'react-router-dom';
-// import './index.css';
-import App from './App';
-import Main from './Pages/Main'
 import registerServiceWorker from './registerServiceWorker';
 
 const rootElement = document.getElementById('root');

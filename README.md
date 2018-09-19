@@ -198,6 +198,38 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+## Supported Browsers
+
+By default, the generated project uses the latest version of React.
+
+You can refer [to the React documentation](https://reactjs.org/docs/react-dom.html#browser-support) for more information about supported browsers.
+
+## Supported Language Features and Polyfills
+
+This project supports a superset of the latest JavaScript standard.<br>
+In addition to [ES6](https://github.com/lukehoban/es6features) syntax features, it also supports:
+
+* [Exponentiation Operator](https://github.com/rwaldron/exponentiation-operator) (ES2016).
+* [Async/await](https://github.com/tc39/ecmascript-asyncawait) (ES2017).
+* [Object Rest/Spread Properties](https://github.com/sebmarkbage/ecmascript-rest-spread) (stage 3 proposal).
+* [Dynamic import()](https://github.com/tc39/proposal-dynamic-import) (stage 3 proposal)
+* [Class Fields and Static Properties](https://github.com/tc39/proposal-class-public-fields) (part of stage 3 proposal).
+* [JSX](https://facebook.github.io/react/docs/introducing-jsx.html) and [Flow](https://flowtype.org/) syntax.
+
+Learn more about [different proposal stages](https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-).
+
+While we recommend using experimental proposals with some caution, Facebook heavily uses these features in the product code, so we intend to provide [codemods](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb) if any of these proposals change in the future.
+
+Note that **the project only includes a few ES6 [polyfills](https://en.wikipedia.org/wiki/Polyfill)**:
+
+* [`Object.assign()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) via [`object-assign`](https://github.com/sindresorhus/object-assign).
+* [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) via [`promise`](https://github.com/then/promise).
+* [`fetch()`](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) via [`whatwg-fetch`](https://github.com/github/fetch).
+
+If you use any other ES6+ features that need **runtime support** (such as `Array.from()` or `Symbol`), make sure you are including the appropriate polyfills manually, or that the browsers you are targeting already support them.
+
+Also note that using some newer syntax features like `for...of` or `[...nonArrayValue]` causes Babel to emit code that depends on ES6 runtime features and might not work without a polyfill. When in doubt, use [Babel REPL](https://babeljs.io/repl/) to see what any specific syntax compiles down to.
+
 ## Syntax Highlighting in the Editor
 
 To configure the syntax highlighting in your favorite text editor, head to the [relevant Babel documentation page](https://babeljs.io/docs/editors) and follow the instructions. Some of the most popular editors are covered.
@@ -268,7 +300,7 @@ In the WebStorm menu `Run` select `Edit Configurations...`. Then click `+` and s
 
 Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windows and Linux or click the green debug icon to start debugging in WebStorm.
 
-The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine.
+The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine. 
 
 ## Formatting Code Automatically
 
@@ -512,6 +544,100 @@ becomes this:
 ```
 
 If you need to disable autoprefixing for some reason, [follow this section](https://github.com/postcss/autoprefixer#disabling).
+
+## Adding a CSS Preprocessor (Sass, Less etc.)
+
+Generally, we recommend that you don’t reuse the same CSS classes across different components. For example, instead of using a `.Button` CSS class in `<AcceptButton>` and `<RejectButton>` components, we recommend creating a `<Button>` component with its own `.Button` styles, that both `<AcceptButton>` and `<RejectButton>` can render (but [not inherit](https://facebook.github.io/react/docs/composition-vs-inheritance.html)).
+
+Following this rule often makes CSS preprocessors less useful, as features like mixins and nesting are replaced by component composition. You can, however, integrate a CSS preprocessor if you find it valuable. In this walkthrough, we will be using Sass, but you can also use Less, or another alternative.
+
+First, let’s install the command-line interface for Sass:
+
+```sh
+npm install --save node-sass-chokidar
+```
+
+Alternatively you may use `yarn`:
+
+```sh
+yarn add node-sass-chokidar
+```
+
+Then in `package.json`, add the following lines to `scripts`:
+
+```diff
+   "scripts": {
++    "build-css": "node-sass-chokidar src/ -o src/",
++    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+     "start": "react-scripts start",
+     "build": "react-scripts build",
+     "test": "react-scripts test --env=jsdom",
+```
+
+>Note: To use a different preprocessor, replace `build-css` and `watch-css` commands according to your preprocessor’s documentation.
+
+Now you can rename `src/App.css` to `src/App.scss` and run `npm run watch-css`. The watcher will find every Sass file in `src` subdirectories, and create a corresponding CSS file next to it, in our case overwriting `src/App.css`. Since `src/App.js` still imports `src/App.css`, the styles become a part of your application. You can now edit `src/App.scss`, and `src/App.css` will be regenerated.
+
+To share variables between Sass files, you can use Sass imports. For example, `src/App.scss` and other component style files could include `@import "./shared.scss";` with variable definitions.
+
+To enable importing files without using relative paths, you can add the  `--include-path` option to the command in `package.json`.
+
+```
+"build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+"watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+```
+
+This will allow you to do imports like
+
+```scss
+@import 'styles/_colors.scss'; // assuming a styles directory under src/
+@import 'nprogress/nprogress'; // importing a css file from the nprogress node module
+```
+
+At this point you might want to remove all CSS files from the source control, and add `src/**/*.css` to your `.gitignore` file. It is generally a good practice to keep the build products outside of the source control.
+
+As a final step, you may find it convenient to run `watch-css` automatically with `npm start`, and run `build-css` as a part of `npm run build`. You can use the `&&` operator to execute two scripts sequentially. However, there is no cross-platform way to run two scripts in parallel, so we will install a package for this:
+
+```sh
+npm install --save npm-run-all
+```
+
+Alternatively you may use `yarn`:
+
+```sh
+yarn add npm-run-all
+```
+
+Then we can change `start` and `build` scripts to include the CSS preprocessor commands:
+
+```diff
+   "scripts": {
+     "build-css": "node-sass-chokidar src/ -o src/",
+     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+-    "start": "react-scripts start",
+-    "build": "react-scripts build",
++    "start-js": "react-scripts start",
++    "start": "npm-run-all -p watch-css start-js",
++    "build-js": "react-scripts build",
++    "build": "npm-run-all build-css build-js",
+     "test": "react-scripts test --env=jsdom",
+     "eject": "react-scripts eject"
+   }
+```
+
+Now running `npm start` and `npm run build` also builds Sass files.
+
+**Why `node-sass-chokidar`?**
+
+`node-sass` has been reported as having the following issues:
+
+- `node-sass --watch` has been reported to have *performance issues* in certain conditions when used in a virtual machine or with docker.
+
+- Infinite styles compiling [#1939](https://github.com/facebookincubator/create-react-app/issues/1939)
+
+- `node-sass` has been reported as having issues with detecting new files in a directory [#1891](https://github.com/sass/node-sass/issues/1891)
+
+ `node-sass-chokidar` is used here as it addresses these issues.
 
 ## Adding Images, Fonts, and Files
 
@@ -1905,7 +2031,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`.
+It will get copied to the `build` folder when you run `npm run build`. 
 
 If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 
@@ -2345,7 +2471,7 @@ To resolve this:
 1. Open an issue on the dependency's issue tracker and ask that the package be published pre-compiled.
   * Note: Create React App can consume both CommonJS and ES modules. For Node.js compatibility, it is recommended that the main entry point is CommonJS. However, they can optionally provide an ES module entry point with the `module` field in `package.json`. Note that **even if a library provides an ES Modules version, it should still precompile other ES6 features to ES5 if it intends to support older browsers**.
 
-2. Fork the package and publish a corrected version yourself.
+2. Fork the package and publish a corrected version yourself. 
 
 3. If the dependency is small enough, copy it to your `src/` folder and treat it as application code.
 

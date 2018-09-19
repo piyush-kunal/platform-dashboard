@@ -1,12 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { withStyles } from '@material-ui/core/styles';
-import Dashboard from './Dashboard'
+
+import BigDataPlatform from './Pages/BigDataPlatform'
+import OraclePlatform from './Pages/OraclePlatform'
+import DataGovernance from './Pages/DataGovernance'
+import SASPlatform from './Pages/SASPlatform'
 
 const styles = theme => ({
   root: {
@@ -102,7 +106,7 @@ const platforms = [
     {
         id: 2,
         name: 'Oracle Platform',
-        routes: 'op'
+        routes: 'odp'
     },
     {
         id: 3,
@@ -118,7 +122,6 @@ const platforms = [
 
 function HomePage(props) {
   const { classes } = props;
-
   return (
     <React.Fragment>
     <CssBaseline />
@@ -134,8 +137,9 @@ function HomePage(props) {
                     width: '40%',
                     margin: '10px'
                 }}
+                component={Link}
+                to={`/${platform.routes}`}
               >
-              <Link to={`/${platform.routes}`}>
               <span
                 className={classes.imageSrc}
                 style={{
@@ -154,12 +158,10 @@ function HomePage(props) {
                 <span className={classes.imageMarked} />
               </Typography>
               </span>
-              </Link>
             </ButtonBase>
             ))}
           </div>
        </div>
-       
     </React.Fragment>
   );
 }

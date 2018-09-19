@@ -12,13 +12,15 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { dashboardViewItems } from './tileData';
-import SimpleTable from './tables/SimpleTable';
-import SimpleLineChart from './charts/SimpleLineChart';
-import SimpleBarChart from './charts/SimpleBarChart';
-import SimplePieChart from './charts/SimplePieChart';
-import QueryFilter from './common/QueryFilter'
+import TilesData from './TilesData';
+import SimpleTable from './Tables/SimpleTable';
+import SimpleLineChart from './Charts/SimpleLineChart';
+import SimpleBarChart from './Charts/SimpleBarChart';
+import SimplePieChart from './Charts/SimplePieChart';
+import QueryFilter from './Common/QueryFilter'
 
 const drawerWidth = 240;
 
@@ -154,6 +156,8 @@ class Dashboard extends React.Component {
             </div>
             <Divider />
             <List>{dashboardViewItems}</List>
+            <Divider/>
+            <List><TilesData /></List>
           </Drawer>
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />

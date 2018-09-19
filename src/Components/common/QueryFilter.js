@@ -93,7 +93,7 @@ class QueryFilter extends React.Component {
         <FormControl className={classes.formControl}>
           <TextField
             id="date"
-            label="Birthday"
+            label="Date"
             type="date"
             defaultValue="2017-05-24"
             className={classes.textField}
