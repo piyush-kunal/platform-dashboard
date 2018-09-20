@@ -2,7 +2,7 @@ import React, { Component, Fragment} from 'react'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { AppBar, Toolbar, List, Typography, Divider, MenuList, MenuItem,
+import { AppBar, Toolbar, List, Typography, Divider, MenuList, MenuItem, Button,
         Drawer, IconButton, CssBaseline} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
@@ -78,23 +78,6 @@ const styles = theme => ({
   },
 });
 
-const drawers = (
-  <div>
-    <MenuList>
-      <MenuItem component={Link} to="/">
-        Home
-      </MenuItem>
-      <MenuItem component={Link} to="/dgp">
-        Writers
-      </MenuItem>
-      <MenuItem component={Link} to="/bdp">
-        Writers
-      </MenuItem>
-    </MenuList>
-    <Divider />
-  </div>
-);
-
 class Layout extends Component {
   constructor(props) {
     super(props);
@@ -132,9 +115,11 @@ class Layout extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              <Link to='/'>Platform Dashboard</Link>
-            </Typography>
+            <Button color="inherit" component={Link} to='/'>
+              <Typography variant="title" color="inherit" noWrap>
+                Platform Dashboard
+              </Typography>
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
