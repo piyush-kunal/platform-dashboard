@@ -1,16 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { withStyles } from '@material-ui/core/styles';
-
-import BigDataPlatform from './Pages/BigDataPlatform'
-import OraclePlatform from './Pages/OraclePlatform'
-import DataGovernance from './Pages/DataGovernance'
-import SASPlatform from './Pages/SASPlatform'
 
 const styles = theme => ({
   root: {

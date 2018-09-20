@@ -27,7 +27,7 @@ export default class PlateformDashboard extends Component {
             <Route path="/odp" component={OraclePlatform}/>
             <Route path="/sasp" component={SASPlatform}/>
           
-          {/* <Dashboard /> */}
+          <Dashboard />
           <Footer />
         </Layout>
      

@@ -27,24 +27,27 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
  );
 };
 
+// cx={300} 
+// cy={200} 
 
 function SimplePieChart() {
   return (
-    <PieChart width={800} height={400}>
+    <PieChart width={300} height={300} margine={{ top: 5, right: 5, bottom: 5, left: 5 }}>
         <Pie
           data={data} 
-          cx={300} 
-          cy={200} 
+          cx='50%'
+          cy='50%'
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={80} 
+          outerRadius={100} 
           fill="#8884d8"
         >
         	{
           	data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
           }
         </Pie>
-      </PieChart>
+        
+    </PieChart>
   );
 }
 

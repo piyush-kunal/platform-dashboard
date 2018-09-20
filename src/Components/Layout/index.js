@@ -1,8 +1,8 @@
 import React, { Component, Fragment} from 'react'
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { AppBar, Toolbar, List, Typography, Divider, MenuList, MenuItem, Button,
+import { AppBar, Toolbar, List, Typography, Divider, Button,
         Drawer, IconButton, CssBaseline} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'

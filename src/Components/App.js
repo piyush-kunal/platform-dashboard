@@ -1,23 +1,14 @@
-import React, { Component, Fragment } from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom'
-
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import Login from './Login'
 import MainPanel from './MainPanel'
-
-import PlateformDashboard from './PlateformDashboard'
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: null,
+      user: 1,
     };
   }
 
