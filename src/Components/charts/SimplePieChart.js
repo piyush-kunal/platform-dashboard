@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PieChart from 'recharts/lib/chart/PieChart';
 import Pie from 'recharts/lib/polar/Pie';
 // import Sector from 'recharts/lib/shape/Sector';
 import Cell from 'recharts/lib/component/Cell';
+import { Typography } from '@material-ui/core'
 
 // PieChart, Pie, Sector, Cell
 
 const data = [
-    {name: 'Group A', value: 400}, {name: 'Group B', value: 300},
-    {name: 'Group C', value: 300}, {name: 'Group D', value: 200}
-            ];
+    {name: 'Used Space', value: 30}, 
+    {name: 'Free Space', value: 70},
+  ];
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -30,11 +31,18 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 // cx={300} 
 // cy={200} 
 
-function SimplePieChart() {
+export default props => {
+
+  const newdata = props.data
+  console.log('newData',{...newdata})
+
   return (
-    <PieChart width={300} height={300} margine={{ top: 5, right: 5, bottom: 5, left: 5 }}>
+    <Fragment>
+      <Typography variant="title" color="inherit" noWrap>Team 1 RO Statistics</Typography>
+    <PieChart width={300} height={300} >
         <Pie
-          data={data} 
+          data={data}
+          dataKey='value'
           cx='50%'
           cy='50%'
           labelLine={false}
@@ -48,7 +56,8 @@ function SimplePieChart() {
         </Pie>
         
     </PieChart>
+    </Fragment>
   );
 }
 
-export default SimplePieChart;
+// export default SimplePieChart;

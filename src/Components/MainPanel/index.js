@@ -17,7 +17,7 @@ export default props => {
           <Route path="/bdp" render={props => <BigDataPlatform {...props} />}/>
           <Route path="/odp" component={OraclePlatform}/>
           <Route path="/sasp" component={SASPlatform}/>
-        <Footer />
+        <Footer style={{padding: '8px 0px',}} />
       </Layout>     
     </div>
   )
