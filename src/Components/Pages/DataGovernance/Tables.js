@@ -4,6 +4,8 @@ import SimpleTable from '../../Tables/SimpleTable'
 const styles = {
     tableContainer: {
         height: 320,
+        paddingTop: 20,
+        paddingBottom: 40
       },
 }
 

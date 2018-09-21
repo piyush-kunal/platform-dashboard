@@ -8,15 +8,32 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const styles = {
+const CustomTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+    marginBottom:20
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const styles = theme => ({
   root: {
     width: '100%',
+    marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
   table: {
     minWidth: 700,
   },
-};
+  row: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
+    },
+  },
+});
 
 let id = 0;
 function createData(name, calories, fat, carbs, protein) {
@@ -24,7 +41,7 @@ function createData(name, calories, fat, carbs, protein) {
   return { id, name, calories, fat, carbs, protein };
 }
 
-const data = [
+const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
   createData('Eclair', 262, 16.0, 24, 6.0),
@@ -40,24 +57,24 @@ function SimpleTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell numeric>Calories</TableCell>
-            <TableCell numeric>Fat (g)</TableCell>
-            <TableCell numeric>Carbs (g)</TableCell>
-            <TableCell numeric>Protein (g)</TableCell>
+            <CustomTableCell>Dessert (100g serving)</CustomTableCell>
+            <CustomTableCell numeric>Calories</CustomTableCell>
+            <CustomTableCell numeric>Fat (g)</CustomTableCell>
+            <CustomTableCell numeric>Carbs (g)</CustomTableCell>
+            <CustomTableCell numeric>Protein (g)</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
+          {rows.map(row => {
             return (
-              <TableRow key={n.id}>
-                <TableCell component="th" scope="row">
-                  {n.name}
-                </TableCell>
-                <TableCell numeric>{n.calories}</TableCell>
-                <TableCell numeric>{n.fat}</TableCell>
-                <TableCell numeric>{n.carbs}</TableCell>
-                <TableCell numeric>{n.protein}</TableCell>
+              <TableRow className={classes.row} key={row.id}>
+                <CustomTableCell component="th" scope="row">
+                  {row.name}
+                </CustomTableCell>
+                <CustomTableCell numeric>{row.calories}</CustomTableCell>
+                <CustomTableCell numeric>{row.fat}</CustomTableCell>
+                <CustomTableCell numeric>{row.carbs}</CustomTableCell>
+                <CustomTableCell numeric>{row.protein}</CustomTableCell>
               </TableRow>
             );
           })}

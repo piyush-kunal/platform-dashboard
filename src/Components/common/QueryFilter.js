@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { InputLabel, MenuItem, FormControl, Select, TextField, Button, Grid } from '@material-ui/core';
 import TripOriginIcon from '@material-ui/icons/TripOrigin';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    margin: 0
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120,
+    minWidth: 200,
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
@@ -57,7 +53,9 @@ class QueryFilter extends React.Component {
     const { classes } = this.props;
 
     return (
+      <Grid container spacing={24}>
       <form className={classes.root} autoComplete="off">
+        <Grid item xs={3}>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="filter01">Filter-01</InputLabel>
           <Select
@@ -72,6 +70,8 @@ class QueryFilter extends React.Component {
             <MenuItem value="RW">RW</MenuItem>
           </Select>
         </FormControl>
+        </Grid>
+        <Grid item xs={3}>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="filter02">Filter-02</InputLabel>
           <Select
@@ -90,6 +90,8 @@ class QueryFilter extends React.Component {
             <MenuItem value="RW">Team 5</MenuItem>
           </Select>
         </FormControl>
+        </Grid>
+        <Grid item xs={3}>
         <FormControl className={classes.formControl}>
           <TextField
             id="date"
@@ -102,13 +104,17 @@ class QueryFilter extends React.Component {
             }}
           />
         </FormControl>
+        </Grid>
+        <Grid item xs={3}>
         <FormControl className={classes.formControl}>
           <Button variant="contained" color="primary" className={classes.button}>
-            Enter
+            Search
             <TripOriginIcon className={classes.rightIcon} />
           </Button>
         </FormControl>
+        </Grid>
       </form>
+      </Grid> 
     );
   }
 }

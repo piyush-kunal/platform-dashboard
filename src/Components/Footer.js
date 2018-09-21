@@ -7,12 +7,13 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     layout: {
       width: 'auto',
-      marginLeft: theme.spacing.unit * 3,
-      marginRight: theme.spacing.unit * 3,
+      marginLeft: theme.spacing.unit * 2,
+      marginRight: theme.spacing.unit * 2,
+      marginTop: theme.spacing.unit * 4,
     },
     footer: {
-      backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing.unit * 3,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing.unit * 2,
     },
   });
 
@@ -30,7 +31,7 @@ const Footer = (props) => {
       <footer className={classNames(classes.footer, classes.layout)}>
         <Grid container spacing={32} justify="space-evenly">
           <Grid item xs>
-            <Typography variant="subheading" color="textSecondary">
+            <Typography variant="subheading" align="center" color="textSecondary" component="p">
                 &copy; 2018 Piyush Kunal
               </Typography>
           </Grid>

@@ -10,7 +10,6 @@ export default ({match}) => {
   return (
     <Fragment>
       <QueryFilter />
-      <hr/>
       <Route path={`${match.path}/charts`} component={ChartComponent} />
       <Route path={`${match.path}/tables`} component={Tables} />
       <Route path={`${match.path}/trends`} component={Trends} />
