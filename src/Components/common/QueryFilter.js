@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { InputLabel, MenuItem, FormControl, Select, TextField, Button, Grid } from '@material-ui/core';
+import { InputLabel, MenuItem, FormControl, Select, TextField, Button, Grid, Paper } from '@material-ui/core';
 import TripOriginIcon from '@material-ui/icons/TripOrigin';
 
 const styles = theme => ({
+  root1: {
+    flexGrow: 1,
+    paddingBottom: theme.spacing.unit * 3,
+  },
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    margin: 0
+    flexGrow: 1,
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -53,9 +57,11 @@ class QueryFilter extends React.Component {
     const { classes } = this.props;
 
     return (
+      <div className={classes.root1}>
       <Grid container spacing={24}>
       <form className={classes.root} autoComplete="off">
-        <Grid item xs={3}>
+        <Grid item xs={4}/>
+        <Grid item xs={2}>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="filter01">Filter-01</InputLabel>
           <Select
@@ -71,7 +77,7 @@ class QueryFilter extends React.Component {
           </Select>
         </FormControl>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="filter02">Filter-02</InputLabel>
           <Select
@@ -91,7 +97,7 @@ class QueryFilter extends React.Component {
           </Select>
         </FormControl>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
         <FormControl className={classes.formControl}>
           <TextField
             id="date"
@@ -105,7 +111,7 @@ class QueryFilter extends React.Component {
           />
         </FormControl>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
         <FormControl className={classes.formControl}>
           <Button variant="contained" color="primary" className={classes.button}>
             Search
@@ -115,6 +121,7 @@ class QueryFilter extends React.Component {
         </Grid>
       </form>
       </Grid> 
+      </div>
     );
   }
 }

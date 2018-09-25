@@ -33,6 +33,10 @@ class Chart extends Component {
         {name: 'Used Space', value: 25}, 
         {name: 'Free Space', value: 75}
       ],
+      [
+        {name: 'Used Space', value: 25}, 
+        {name: 'Free Space', value: 75}
+      ]
     ]
       }
   render() {
@@ -50,6 +54,9 @@ class Chart extends Component {
         </Grid>
         })} */}
           
+          <Grid item xs={3}>
+            <SimplePieChart />
+          </Grid>
           <Grid item xs={3}>
             <SimplePieChart />
           </Grid>

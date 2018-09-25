@@ -21,17 +21,17 @@ const styles = theme => ({
 });
 
 function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Upload', 'Validate', 'Finish'];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return 'Select campaign settings...';
+      return 'Upload CSV files...';
     case 1:
-      return 'What is an ad group anyways?';
+      return 'Validate the data format...';
     case 2:
-      return 'This is the bit I really care about!';
+      return 'Final step...';
     default:
       return 'Unknown step';
   }
