@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { parseMemSpace, parseTeamName } from '../utils'
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -50,31 +51,32 @@ const rows = [
 ];
 
 function SimpleTable(props) {
-  const { classes } = props;
+  const { classes, data } = props;
+  console.log('newData', data)
 
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Dessert (100g serving)</CustomTableCell>
-            <CustomTableCell numeric>Calories</CustomTableCell>
-            <CustomTableCell numeric>Fat (g)</CustomTableCell>
-            <CustomTableCell numeric>Carbs (g)</CustomTableCell>
-            <CustomTableCell numeric>Protein (g)</CustomTableCell>
+            <CustomTableCell>Team</CustomTableCell>
+            <CustomTableCell numeric>Total Space (TB)</CustomTableCell>
+            <CustomTableCell numeric>Used Space (TB)</CustomTableCell>
+            <CustomTableCell numeric>Free Space (TB)</CustomTableCell>
+            <CustomTableCell numeric>Percentage (%)</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => {
+          {data.map(row => {
             return (
               <TableRow className={classes.row} key={row.id}>
                 <CustomTableCell component="th" scope="row">
-                  {row.name}
+                  {parseTeamName(row.team)}
                 </CustomTableCell>
-                <CustomTableCell numeric>{row.calories}</CustomTableCell>
-                <CustomTableCell numeric>{row.fat}</CustomTableCell>
-                <CustomTableCell numeric>{row.carbs}</CustomTableCell>
-                <CustomTableCell numeric>{row.protein}</CustomTableCell>
+                <CustomTableCell numeric>{parseMemSpace(row.total_space)}</CustomTableCell>
+                <CustomTableCell numeric>{parseMemSpace(row.used_space)}</CustomTableCell>
+                <CustomTableCell numeric>{parseMemSpace(row.free_space)}</CustomTableCell>
+                <CustomTableCell numeric>{row.percentage}</CustomTableCell>
               </TableRow>
             );
           })}

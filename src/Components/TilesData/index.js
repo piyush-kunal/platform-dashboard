@@ -25,7 +25,7 @@ export default props => {
       </ListItemIcon>
       <ListItemText primary="Weekly Trends" />
     </ListItem>
-    <ListItem component={Link} to="/"  button>
+    <ListItem component={Link} to="/dgp/uploadcsv"  button>
       <ListItemIcon>
         <CloudUpload />
       </ListItemIcon>

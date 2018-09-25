@@ -1,10 +1,8 @@
-import React ,{ Fragment, Component } from 'react'
+import React ,{ Component } from 'react'
+import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
+import { Grid, Paper } from '@material-ui/core';
 import SimplePieChart from '../../Charts/SimplePieChart'
 import SimpleBarChart from '../../Charts/SimpleBarChart'
 
@@ -41,6 +39,10 @@ class Chart extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <Helmet>
+                <meta charSet="utf-8" />
+                <title>Plots</title>
+        </Helmet>
         <Grid container spacing={24}>
         {/* {this.state.data.map((e)=> {
           <Grid key={e} item xs={3}>
@@ -49,13 +51,13 @@ class Chart extends Component {
         })} */}
           
           <Grid item xs={3}>
-            <Paper className={classes.paper}><SimplePieChart /></Paper>
+            <SimplePieChart />
           </Grid>
           <Grid item xs={3}>
-            <Paper className={classes.paper}><SimplePieChart /></Paper>
+            <SimplePieChart />
           </Grid>
           <Grid item xs={3}>
-            <Paper className={classes.paper}><SimplePieChart /></Paper>
+            <SimplePieChart />
           </Grid>
           <Grid item xs={9}>
             <Paper className={classes.paper}><SimpleBarChart /></Paper>
@@ -72,18 +74,3 @@ Chart.propTypes = {
 
 export default withStyles(styles)(Chart);
 
-// export default () => {
-//   return (
-//     <Fragment>
-//       <div className={styles.chartContainer}>
-//         <SimplePieChart />
-//       </div>
-//       <div className={styles.chartContainer}>
-//         <SimplePieChart />
-//       </div>
-//       <div className={styles.chartContainer}>
-//         <SimpleBarChart />
-//       </div>
-//     </Fragment>
-//   )
-// }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -30,6 +31,10 @@ class Trends extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <Helmet>
+                <meta charSet="utf-8" />
+                <title>Trends</title>
+        </Helmet>
         <Grid container spacing={24}>  
           <Grid item xs={12}>
             <Paper className={classes.paper}><SimpleLineChart /></Paper>

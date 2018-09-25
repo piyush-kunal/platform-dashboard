@@ -22,12 +22,6 @@ const Footer = (props) => {
   console.log('class name', classes.footer)
   return (
     <Fragment>
-    {/* <footer className={classes.footer}>
-        <Typography variant="subheading" align="center" color="textSecondary" component="p">
-          &copy; 2018 Piyush Kunal
-        </Typography>
-      </footer> */}
-
       <footer className={classNames(classes.footer, classes.layout)}>
         <Grid container spacing={32} justify="space-evenly">
           <Grid item xs>
