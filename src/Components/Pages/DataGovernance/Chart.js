@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid, Paper } from '@material-ui/core';
 import SimplePieChart from '../../Charts/SimplePieChart'
 import SimpleBarChart from '../../Charts/SimpleBarChart'
+import { parseTeamName, getROROWTeamDetails } from '../../utils'
 
 const styles = theme => ({
   root: {
@@ -18,29 +19,57 @@ const styles = theme => ({
 });
 
 class Chart extends Component {
-  state = {
-    spacing: '16',
-    data: [
-      [
-        {name: 'Used Space', value: 30}, 
-        {name: 'Free Space', value: 70}
-      ],
-      [
-        {name: 'Used Space', value: 20}, 
-        {name: 'Free Space', value: 80}
-      ],
-      [
-        {name: 'Used Space', value: 25}, 
-        {name: 'Free Space', value: 75}
-      ],
-      [
-        {name: 'Used Space', value: 25}, 
-        {name: 'Free Space', value: 75}
-      ]
-    ]
+  // state = {
+  //   spacing: '16',
+  //   data: [
+  //     [
+  //       {name: 'Used Space', value: 30}, 
+  //       {name: 'Free Space', value: 70}
+  //     ],
+  //     [
+  //       {name: 'Used Space', value: 20}, 
+  //       {name: 'Free Space', value: 80}
+  //     ],
+  //     [
+  //       {name: 'Used Space', value: 25}, 
+  //       {name: 'Free Space', value: 75}
+  //     ],
+  //     [
+  //       {name: 'Used Space', value: 25}, 
+  //       {name: 'Free Space', value: 75}
+  //     ]
+  //   ]
+  //     }
+  constructor(props) {
+    super(props);
+      this.state = {
+        data: [],
+        pieData: [],
+        BarData: []
       }
+    }
+    
+  async componentDidMount() {
+    const data1 = await (await fetch('http://localhost:3004/ro_rw')).json()
+    const chart = arr => {
+      let temparr = [];
+      let temp = {};
+      arr.forEach(data => {
+        temp = {
+          'name': parseTeamName(data['team']),
+          'values': [{ name: 'used_space', value: data['used_space'] },
+          { name: 'free_space', value: data['free_space'] }]
+        }
+        temparr.push(temp)
+      });
+      return temparr;
+    }
+    const pieData = await (chart(getROROWTeamDetails(data1)))
+    this.setState({ pieData })
+  }
   render() {
     const { classes } = this.props;
+    const { pieData } = this.state;
     return (
       <div className={classes.root}>
         <Helmet>
@@ -48,13 +77,21 @@ class Chart extends Component {
                 <title>Plots</title>
         </Helmet>
         <Grid container spacing={24}>
-        {/* {this.state.data.map((e)=> {
-          <Grid key={e} item xs={3}>
-          <Paper className={classes.paper}><SimplePieChart data={e} /></Paper>
-        </Grid>
-        })} */}
+        {pieData.map(item => {
+          return (
+            <Grid key={item.name} item xs={3}>
+            <SimplePieChart pieData={item} />
+          </Grid>
+          )
+        })}
+
+          {/* {this.state.pieData.map((item)=> {
+            <Grid key={item.name} item xs={3}>
+              <SimplePieChart data={item} />
+            </Grid>
+            })} */}
           
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <SimplePieChart />
           </Grid>
           <Grid item xs={3}>
@@ -65,7 +102,7 @@ class Chart extends Component {
           </Grid>
           <Grid item xs={3}>
             <SimplePieChart />
-          </Grid>
+          </Grid> */}
           <Grid item xs={9}>
             <Paper className={classes.paper}><SimpleBarChart /></Paper>
           </Grid>

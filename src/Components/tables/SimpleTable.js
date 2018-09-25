@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -52,7 +52,6 @@ const rows = [
 
 function SimpleTable(props) {
   const { classes, data } = props;
-  console.log('newData', data)
 
   return (
     <Paper className={classes.root}>
@@ -60,9 +59,10 @@ function SimpleTable(props) {
         <TableHead>
           <TableRow>
             <CustomTableCell>Team</CustomTableCell>
-            <CustomTableCell numeric>Total Space (TB)</CustomTableCell>
-            <CustomTableCell numeric>Used Space (TB)</CustomTableCell>
-            <CustomTableCell numeric>Free Space (TB)</CustomTableCell>
+            <CustomTableCell numeric>Total Space (in TB)</CustomTableCell>
+            <CustomTableCell numeric>Used Space (in TB)</CustomTableCell>
+            <CustomTableCell numeric>Free Space (in TB)</CustomTableCell>
+            <CustomTableCell numeric>Area Name</CustomTableCell>
             <CustomTableCell numeric>Percentage (%)</CustomTableCell>
           </TableRow>
         </TableHead>
@@ -73,9 +73,10 @@ function SimpleTable(props) {
                 <CustomTableCell component="th" scope="row">
                   {parseTeamName(row.team)}
                 </CustomTableCell>
-                <CustomTableCell numeric>{parseMemSpace(row.total_space)}</CustomTableCell>
-                <CustomTableCell numeric>{parseMemSpace(row.used_space)}</CustomTableCell>
-                <CustomTableCell numeric>{parseMemSpace(row.free_space)}</CustomTableCell>
+                <CustomTableCell numeric>{row.total_space}</CustomTableCell>
+                <CustomTableCell numeric>{row.used_space}</CustomTableCell>
+                <CustomTableCell numeric>{row.free_space}</CustomTableCell>
+                <CustomTableCell numeric>{row.area_name}</CustomTableCell>
                 <CustomTableCell numeric>{row.percentage}</CustomTableCell>
               </TableRow>
             );
