@@ -55,8 +55,15 @@ class Login extends Component {
 
   }
 
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
   onSubmit = () => {
-    this.props.onLogin(this.state.username, this.state.password);
+    const {username, password} = this.state;
+    if(username === 'demo' && password === 'demo') {
+      this.props.onLogin(this.state.username, this.state.password);
+    }  
   };
 
   render() {
@@ -73,7 +80,12 @@ class Login extends Component {
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="username">User Name</InputLabel>
-              <Input id="username" name="username" autoComplete="username" autoFocus />
+              <Input 
+                id="username" 
+                name="username" 
+                autoComplete="username" 
+                onChange={this.handleChange}
+                autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
@@ -81,6 +93,7 @@ class Login extends Component {
                 name="password"
                 type="password"
                 id="password"
+                onChange={this.handleChange}
                 autoComplete="current-password"
               />
             </FormControl>

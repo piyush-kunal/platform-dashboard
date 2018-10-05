@@ -50,7 +50,6 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 function SimplePieChart(props) {
   const { classes, pieData } = props;
-  console.log('pieData.values', pieData.values[0].value)
   return (
     <Card className={classes.card}>
       <CardContent>

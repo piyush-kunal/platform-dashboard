@@ -6,17 +6,26 @@ import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
+import { parseTeamName } from '../utils'
 
-const data = [
-  {name: 'Team 1', ts: 900, fs: 200, us: 700},
-  {name: 'Team 2', ts: 900, fs: 350, us: 550},
-  {name: 'Team 3', ts: 900, fs: 400, us: 500},
-  {name: 'Team 4', ts: 900, fs: 500, us: 400},
-  {name: 'Team 5', ts: 900, fs: 450, us: 450},
-  {name: 'Team 6', ts: 900, fs: 250, us: 650},
-];
+// const data = [
+//   {name: 'Team 1', ts: 900, fs: 200, us: 700},
+//   {name: 'Team 2', ts: 900, fs: 350, us: 550},
+//   {name: 'Team 3', ts: 900, fs: 400, us: 500},
+//   {name: 'Team 4', ts: 900, fs: 500, us: 400},
+//   {name: 'Team 5', ts: 900, fs: 450, us: 450},
+//   {name: 'Team 6', ts: 900, fs: 250, us: 650},
+// ];
 
-function SimpleBarChart() {
+function SimpleBarChart(props) {
+  const data = [];
+  const { barData } = props
+  barData.map(item => {
+    return (
+      data.push({name: parseTeamName(item.team), used_space: item.used_space, free_space: item.free_space, total_space: item.total_space})
+    )
+  })
+  
   return (
     // 99% per https://github.com/recharts/recharts/issues/172
     <BarChart width={800} height={300} data={data}
@@ -26,9 +35,9 @@ function SimpleBarChart() {
        <YAxis/>
        <Tooltip/>
        <Legend />
-       <Bar dataKey="ts" fill="#82ca9d" />
-       <Bar dataKey="fs" fill="#8884d8" />
-       <Bar dataKey="us" fill="#d8c175" />
+       <Bar dataKey="total_space" fill="#82ca9d" />
+       <Bar dataKey="free_space" fill="#8884d8" />
+       <Bar dataKey="used_space" fill="#d8c175" />
     </BarChart>
   );
 }

@@ -64,12 +64,14 @@ class Chart extends Component {
       });
       return temparr;
     }
-    const pieData = await (chart(getROROWTeamDetails(data1)))
+    const data = await (getROROWTeamDetails(data1))
+    const pieData = await (chart(data))
     this.setState({ pieData })
+    this.setState({ data })
   }
   render() {
     const { classes } = this.props;
-    const { pieData } = this.state;
+    const { pieData, data } = this.state;
     return (
       <div className={classes.root}>
         <Helmet>
@@ -84,27 +86,13 @@ class Chart extends Component {
           </Grid>
           )
         })}
-
-          {/* {this.state.pieData.map((item)=> {
-            <Grid key={item.name} item xs={3}>
-              <SimplePieChart data={item} />
-            </Grid>
-            })} */}
           
           {/* <Grid item xs={3}>
             <SimplePieChart />
-          </Grid>
-          <Grid item xs={3}>
-            <SimplePieChart />
-          </Grid>
-          <Grid item xs={3}>
-            <SimplePieChart />
-          </Grid>
-          <Grid item xs={3}>
-            <SimplePieChart />
           </Grid> */}
+
           <Grid item xs={9}>
-            <Paper className={classes.paper}><SimpleBarChart /></Paper>
+            <Paper className={classes.paper}><SimpleBarChart barData={data} /></Paper>
           </Grid>
         </Grid>
       </div>

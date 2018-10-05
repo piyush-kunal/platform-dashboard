@@ -3,6 +3,7 @@ import { Helmet  } from "react-helmet";
 import SimpleTable from '../../Tables/SimpleTable'
 import TableSort from '../../Tables/TableSort'
 import { getROROWTeamDetails } from '../../utils'
+import FilterSearch from '../../Common/FilterSearch'
 
 const styles = {
     tableContainer: {
@@ -25,9 +26,15 @@ export default class Tables  extends Component {
     const data = await getROROWTeamDetails(data1)
     this.setState({ data })
   }
+
+  onFetch = data => {
+    this.setState({ data })
+  }
+
   render() {
     return (
       <Fragment>
+        <FilterSearch onFetch={this.onFetch} />
          <Helmet>
                 <meta charSet="utf-8" />
                 <title>Tables</title>
@@ -35,9 +42,9 @@ export default class Tables  extends Component {
         <div className={styles.tableContainer}>
               <SimpleTable data={this.state.data}/>
         </div> 
-        <div className={styles.tableContainer}>
+        {/* <div className={styles.tableContainer}>
               <TableSort data={this.state.data} />
-        </div> 
+        </div>  */}
       </Fragment>
     )
   }
