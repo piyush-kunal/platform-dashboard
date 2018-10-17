@@ -12,6 +12,16 @@ export function parseTeamName(arg1){
     return str.filter(word => word.length <6 && word.length > 4).join()
 }
 
+export function createRegex(p, t){
+    let regx = `^([/SAS/BIU/]+)([A-Z]+)([_TEAM]+)([0-9])([_]+)([0-9])`;
+    if(t === 'All') {
+        regx = `^([/SAS/BIU/]+)([${p}]+)([_TEAM]+)([0-9])([_]+)([0-9])`;
+    } else {
+        regx = `^([/SAS/BIU/]+)([${p}]+)([_TEAM]+)([${t}])([_]+)([0-9])`;
+    }
+    return regx;
+}
+
 export function getROROWTeamDetails( arr1 ){
     const newObj = {};
     arr1.forEach(val => {

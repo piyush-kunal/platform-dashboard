@@ -1,13 +1,9 @@
 import React from 'react';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { parseMemSpace, parseTeamName } from '../utils'
+import { Paper, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { parseTeamName } from '../utils'
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -34,6 +30,9 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.default,
     },
   },
+  linearProgressBar: {
+    flexGrow: 1
+  }
 });
 
 let id = 0;
@@ -51,7 +50,7 @@ const rows = [
 ];
 
 function SimpleTable(props) {
-  const { classes, data } = props;
+  const { classes, data, load } = props;
 
   return (
     <Paper className={classes.root}>
@@ -83,6 +82,7 @@ function SimpleTable(props) {
           })}
         </TableBody>
       </Table>
+      {load && <div className={classes.linearProgressBar}><LinearProgress /></div>}
     </Paper>
   );
 }

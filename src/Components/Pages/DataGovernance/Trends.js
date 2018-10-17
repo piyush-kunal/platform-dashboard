@@ -7,6 +7,7 @@ import FormLabel from '@material-ui/core/FormLabel'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Paper from '@material-ui/core/Paper'
 import SimpleLineChart from '../../Charts/SimpleLineChart'
+import TrendsFilterSearch from '../../Common/TrendsFilterSearch'
 
 // const styles = {
 //     chartContainer: {
@@ -35,6 +36,7 @@ class Trends extends Component {
                 <meta charSet="utf-8" />
                 <title>Trends</title>
         </Helmet>
+        <TrendsFilterSearch />
         <Grid container spacing={24}>  
           <Grid item xs={12}>
             <Paper className={classes.paper}><SimpleLineChart /></Paper>

@@ -6,6 +6,7 @@ import { Grid, Paper } from '@material-ui/core';
 import SimplePieChart from '../../Charts/SimplePieChart'
 import SimpleBarChart from '../../Charts/SimpleBarChart'
 import { parseTeamName, getROROWTeamDetails } from '../../utils'
+import FilterSearch from '../../Common/FilterSearch'
 
 const styles = theme => ({
   root: {
@@ -69,6 +70,34 @@ class Chart extends Component {
     this.setState({ pieData })
     this.setState({ data })
   }
+
+  onFetch = data1 => {
+    const chart = arr => {
+      let temparr = [];
+      let temp = {};
+      arr.forEach(data => {
+        temp = {
+          'name': parseTeamName(data['team']),
+          'values': [{ name: 'used_space', value: data['used_space'] },
+          { name: 'free_space', value: data['free_space'] }]
+        }
+        temparr.push(temp)
+      });
+      return temparr;
+    }
+    const data = getROROWTeamDetails(data1)
+    if(data) {
+      const pieData = chart(data)
+      if(pieData){
+        this.setState({ pieData })
+        this.setState({ data })
+        this.setState({ data })
+      }
+    }
+    
+    
+  }
+
   render() {
     const { classes } = this.props;
     const { pieData, data } = this.state;
@@ -78,6 +107,7 @@ class Chart extends Component {
                 <meta charSet="utf-8" />
                 <title>Plots</title>
         </Helmet>
+        <FilterSearch onFetch={this.onFetch}/>
         <Grid container spacing={24}>
         {pieData.map(item => {
           return (

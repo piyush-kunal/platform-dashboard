@@ -85,7 +85,15 @@ export default class DropFile extends Component {
             }
           </ul>
         </aside>
-        <Button onClick={this.handleUpload}>Upload</Button>
+        <label htmlFor="outlined-button-file">
+          <Button 
+            variant="outlined" 
+            component="span"
+            onClick={this.handleUpload}
+            >
+            Upload
+          </Button>
+        </label>
       </section>
 
     )

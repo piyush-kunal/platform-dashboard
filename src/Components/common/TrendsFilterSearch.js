@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { InputLabel, MenuItem, FormControl, Select, TextField, Button, Grid, Paper } from '@material-ui/core';
 import TripOriginIcon from '@material-ui/icons/TripOrigin';
-import { getROROWTeamDetails, createRegex } from '../utils'
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+import { getROROWTeamDetails } from '../utils'
 
 const styles = theme => ({
   root1: {
@@ -42,13 +40,6 @@ const styles = theme => ({
   iconSmall: {
     fontSize: 20,
   },
-  buttonProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
-  },
 });
 
 const path = [
@@ -67,15 +58,14 @@ const teams = [
 ]
 
 
-class FilterSearch extends React.Component {
+class TrrendsFilterSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             path: 'RO',
             teams: 'All',
             date: '2017-05-24',
-            data: [],
-            isLoading: false
+            data: []
         };
       }
 
@@ -88,16 +78,14 @@ class FilterSearch extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   
-//   async fetchData() {
-//     const data1 = await (await fetch('http://localhost:3004/ro_rw')).json()
-//     const data = await getROROWTeamDetails(data1)
-//     this.setState({ data })
-//   }
+  async fetchData() {
+    const data1 = await (await fetch('http://localhost:3004/ro_rw')).json()
+    const data = await getROROWTeamDetails(data1)
+    this.setState({ data })
+  }
 //posts?title=json-server&author=typicode
   fetchData = () => {
-    this.setState({ isLoading: true });
-    
-    fetch(`http://localhost:3004/ro_rw?team_like=${this.state.path}_TEAM${this.state.teams} `, {
+    fetch(`http://localhost:3004/ro_rw/?team=/SAS/BIU/+'${'RO'}'+_TEAM3_1`, {
       method: "GET",
       dataType: "JSON",
       headers: {
@@ -106,28 +94,19 @@ class FilterSearch extends React.Component {
     })
     .then((resp) => {
       return resp.json()
-    })
+    }) 
     .then((data) => {
       this.setState({ data }) 
-      this.props.onFetch(this.state.data) 
-      setTimeout(()=> this.setState({isLoading: false}), 1000)
-      
-               
+      console.log(this.state.data)   
+      this.props.onFetch(this.state.data)               
     })
     .catch((error) => {
       console.log(error, "catch the hoop")
-      this.setState({isLoading: false})
     })
   }
 
-//   .then((data) => {
-//     const r = createRegex(this.state.path, this.state.teams)
-//     return getROROWTeamDetails(data, r)
-// })
-
   render() {
     const { classes } = this.props;
-    const { isLoading } = this.state
 
     return (
       <div className={classes.root1}>
@@ -178,38 +157,35 @@ class FilterSearch extends React.Component {
           ))}
         </TextField>
         <TextField
-            id="select-date"
-            name="date"
-            label="Date"
-            type="date"
+            id="select-from-date"
+            name="from-date"
+            label="From Date"
+            type="week"
             className={classes.textField}
-            defaultValue={this.state.date}
+            defaultValue={this.state.fromDate}
             InputLabelProps={{
               shrink: true,
             }}
-            helperText="Please select date"
+            helperText="Please select from date"
             margin="normal"
           />
-          {!isLoading && 
-            <Button variant="contained" color="primary" onClick={this.fetchData} className={classes.button}>
+          <TextField
+            id="select-to-date"
+            name="to-date"
+            label="To Date"
+            type="date"
+            className={classes.textField}
+            defaultValue={this.state.toDate}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            helperText="Please select to date"
+            margin="normal"
+          />
+        <Button variant="contained" color="primary" onClick={this.fetchData} className={classes.button}>
             Search
-           
-            {/* {!isLoading &&  <TripOriginIcon className={classes.rightIcon} />} */}
-            {isLoading && <CircularProgress size={24} className={classes.buttonProgress} thickness={7} />}
-        
+            <TripOriginIcon className={classes.rightIcon} />
           </Button>
-          }
-           {isLoading && 
-            <Button variant="contained"  onClick={this.fetchData} className={classes.button}>
-            Search
-           
-            {/* {!isLoading &&  <TripOriginIcon className={classes.rightIcon} />} */}
-            {isLoading && <CircularProgress size={24} className={classes.buttonProgress} color="primary" thickness={7} />}
-        
-          </Button>
-          }
-          
-       
         {/* <FormControl className={classes.formControl}>
           <InputLabel htmlFor="filter01">Filter-01</InputLabel>
           <Select
@@ -266,8 +242,8 @@ class FilterSearch extends React.Component {
   }
 }
 
-FilterSearch.propTypes = {
+TrrendsFilterSearch.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FilterSearch);
+export default withStyles(styles)(TrrendsFilterSearch);
