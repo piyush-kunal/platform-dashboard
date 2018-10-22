@@ -4,7 +4,6 @@ import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import { BarChart, TableChart, CloudUpload, TrendingUp, FindInPage } from '@material-ui/icons'
 
 export default props => {
-  console.log('tile data', props)
   return (
     <Fragment>
     <ListItem component={Link} to="/dgp/trends" button>

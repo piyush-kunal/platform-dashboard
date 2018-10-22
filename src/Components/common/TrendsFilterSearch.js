@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { InputLabel, MenuItem, FormControl, Select, TextField, Button, Grid, Paper } from '@material-ui/core';
+import { MenuItem, FormControl, TextField, Button, Grid } from '@material-ui/core';
 import TripOriginIcon from '@material-ui/icons/TripOrigin';
 import { getROROWTeamDetails } from '../utils'
 
@@ -96,12 +96,11 @@ class TrrendsFilterSearch extends React.Component {
       return resp.json()
     }) 
     .then((data) => {
-      this.setState({ data }) 
-      console.log(this.state.data)   
+      this.setState({ data })   
       this.props.onFetch(this.state.data)               
     })
     .catch((error) => {
-      console.log(error, "catch the hoop")
+      console.log(error, "catch the error")
     })
   }
 

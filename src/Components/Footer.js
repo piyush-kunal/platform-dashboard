@@ -19,7 +19,6 @@ const styles = theme => ({
 
 const Footer = (props) => {
   const { classes } = props;
-  console.log('class name', classes.footer)
   return (
     <Fragment>
       <footer className={classNames(classes.footer, classes.layout)}>

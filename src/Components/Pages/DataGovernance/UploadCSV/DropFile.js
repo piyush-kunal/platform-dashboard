@@ -3,16 +3,6 @@ import Dropzone from 'react-dropzone'
 import { Button, Grid } from '@material-ui/core';
 import { CloudUploadTwoTone } from '@material-ui/icons'
 
-const styles = {
-
-    largeIcon: {
-      width: 60,
-      height: 60,
-      fontSize: 60
-    },
-  
-  };
-
 export default class DropFile extends Component {
     constructor(props) {
         super(props)

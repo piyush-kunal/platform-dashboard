@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { InputLabel, MenuItem, FormControl, Select, TextField, Button, Grid, Paper } from '@material-ui/core';
-import TripOriginIcon from '@material-ui/icons/TripOrigin';
-import { getROROWTeamDetails, createRegex } from '../utils'
+import { MenuItem, FormControl, TextField, Button, Grid } from '@material-ui/core';
+// import TripOriginIcon from '@material-ui/icons/TripOrigin';
+// import { getROROWTeamDetails, createRegex } from '../utils'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
@@ -115,7 +115,7 @@ class FilterSearch extends React.Component {
                
     })
     .catch((error) => {
-      console.log(error, "catch the hoop")
+      console.log(error, "catch the error")
       this.setState({isLoading: false})
     })
   }
